@@ -155,6 +155,7 @@ function PriorityQueue() {
         this.element = element;
         this.priority = priority;
     }
+
     this.enqueue = function (element, priority) {
         let queueElement = new QueueElement(element, priority);
         let added = false;
@@ -169,12 +170,46 @@ function PriorityQueue() {
             items.push(queueElement); //{5}
         }
     };
+
     this.print = function () {
         for (let i = 0; i < items.length; i++) {
             console.log(`${items[i].element} -
         ${items[i].priority}`);
         }
     };
+
+    this.dequeue = function () {
+        return items.shift();
+    };
+
+    this.front = function () {
+        return items[0];
+    };
+
+    this.isEmpty = function () {
+        return items.length == 0;
+    };
+
+    this.size = function () {
+        return items.length;
+    };
+
+}
+
+function hotPotato(nameList, num) {
+    let queue = new Queue(); // {1}
+    for (let i = 0; i < nameList.length; i++) {
+        queue.enqueue(nameList[i]); // {2}
+    }
+    let eliminated = '';
+    while (queue.size() > 1) {
+        for (let i = 0; i < num; i++) {
+            queue.enqueue(queue.dequeue()); // {3}
+        }
+        eliminated = queue.dequeue(); // {4}
+        console.log(eliminated + ' was eliminated from the Hot Potato game.');
+    }
+    return queue.dequeue(); // {5}
 }
 
 
